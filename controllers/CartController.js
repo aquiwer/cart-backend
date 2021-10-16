@@ -1,4 +1,3 @@
-import ProductService from "../services/ProductService.js";
 import CartService from "../services/CartService.js";
 
 class CartController {

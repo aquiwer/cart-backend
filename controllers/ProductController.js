@@ -16,7 +16,7 @@ class ProductController {
         try {
             const response = await ProductService.getProducts();
             const notFoundPicture = "https://www.mastertoysinc.com/image/catalog/pages/page-404-icon.png";
-            console.log(Object.assign({photo: notFoundPicture}, response), "sdfs")
+            console.log(Object.assign({photo: notFoundPicture}, response), "get")
             return res.json(Object.assign(response, {photo: notFoundPicture}));
         } catch (e) {
             res.status(500).json(e.message);

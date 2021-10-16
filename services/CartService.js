@@ -1,5 +1,4 @@
 import CartShema from "../shemas/CartShema.js";
-import ProductShema from "../shemas/ProductShema.js";
 
 class CartService {
     async addToCart(product) {
