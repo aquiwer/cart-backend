@@ -5,14 +5,12 @@ class UserService {
         const {password} = user;
         if (password.length >= 8) {
             return await UserShema.create(user)
-        }else {
-            return false;
         }
     }
 
     async login(user) {
 
-        return await UserShema.findOne(user);
+        return UserShema.findOne(user);
     }
 }
 

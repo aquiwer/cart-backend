@@ -4,7 +4,7 @@ import router from './router/router.js'
 import fileUpload from 'express-fileupload'
 import process from 'process';
 
-const PORT = 2000;
+const PORT = 3000;
 const DB_URL = "mongodb+srv://user:userPassword@cluster0.wmipr.mongodb.net/cart-db?retryWrites=true&w=majority"
 const app = express();
 
@@ -23,7 +23,9 @@ app.use( express.urlencoded( {
 } ) )
 app.use(express.json({limit: '50mb', extended: true}));
 app.use(fileUpload({}))
+
 app.use('/static', express.static('static'));
+
 
 process.on('unhandledRejection', (reason, promise) => {
     console.log('Unhandled Rejection at:', promise, 'reason:', reason);

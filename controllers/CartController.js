@@ -5,7 +5,6 @@ class CartController {
     async addToCart(req, res) {
         try {
             const response = await CartService.addToCart(req.body);
-            console.log(response, "cart")
             return res.json(response);
         } catch (e) {
             res.status(500).json(e.message)

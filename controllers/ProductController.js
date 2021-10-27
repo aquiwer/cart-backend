@@ -4,7 +4,7 @@ class ProductController {
 
     async createProduct(req, res) {
         try {
-            const response = await ProductService.createProduct(req.body);
+            const response = await ProductService.createProduct(req.body, req.files.photo);
             !response && res.json(404);
             return res.json(response);
         } catch (e) {
@@ -15,9 +15,7 @@ class ProductController {
     async getProduct(req, res) {
         try {
             const response = await ProductService.getProducts();
-            const notFoundPicture = "https://www.mastertoysinc.com/image/catalog/pages/page-404-icon.png";
-            console.log(Object.assign({photo: notFoundPicture}, response), "get")
-            return res.json(Object.assign(response, {photo: notFoundPicture}));
+            return res.json(response);
         } catch (e) {
             res.status(500).json(e.message);
         }
@@ -26,10 +24,18 @@ class ProductController {
     async getCurrentProduct(req, res){
         try {
             const response = await ProductService.getCurrentProduct(req.params.id);
-            console.log(response, "current")
             return res.json(response)
         }catch (e) {
             res.status(500).json(e.message);
+        }
+    }
+
+    async getProductsByType(req,res){
+        try {
+            const response = await ProductService.getProducts(req.params.type);
+            return res.json(response)
+        }catch (e) {
+            res.status(500).json(e.message)
         }
     }
 }
