@@ -12,6 +12,11 @@ class UserService {
 
         return UserShema.findOne(user);
     }
+
+    async changeData(userData) {
+        return UserShema.findByIdAndUpdate(userData._id, userData, {new: true});
+
+    }
 }
 
 export default new UserService()

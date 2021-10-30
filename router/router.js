@@ -14,6 +14,8 @@ router.post("/cart", CartController.addToCart)
 router.get('/cart', CartController.showProductsForCart)
 router.delete('/cart/:id', CartController.deleteItemFroCart)
 
+router.put('/user', UserController.changeData)
+router.post('/user', UserController.register)
 router.post('/favorite', FavoriteController.addToFavorite)
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)

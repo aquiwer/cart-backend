@@ -21,6 +21,15 @@ class UserController {
             return res.status(500).json(e.message)
         }
     }
+
+    async changeData(req, res){
+        try{
+            const response = await UserService.changeData(req.body);
+            return res.json(response)
+        } catch (e) {
+            return res.status(500).json(e.message);
+        }
+    }
 }
 
 export default new UserController()
