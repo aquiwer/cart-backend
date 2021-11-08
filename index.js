@@ -4,7 +4,7 @@ import router from './router/router.js'
 import fileUpload from 'express-fileupload'
 import process from 'process';
 
-const PORT = 3000;
+const PORT = 4000;
 const DB_URL = "mongodb+srv://user:userPassword@cluster0.wmipr.mongodb.net/cart-db?retryWrites=true&w=majority"
 const app = express();
 
