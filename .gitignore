@@ -1,6 +1,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/Desktop.ini
 
 # testing
 /coverage

@@ -4,7 +4,7 @@ import router from './router/router.js'
 import fileUpload from 'express-fileupload'
 import process from 'process';
 
-const PORT = 4000;
+const PORT = 5000;
 const DB_URL = "mongodb+srv://user:userPassword@cluster0.wmipr.mongodb.net/cart-db?retryWrites=true&w=majority"
 const app = express();
 
@@ -42,6 +42,7 @@ const Start = async () => {
         app.listen(PORT, () => console.log("Working"))
     } catch (e) {
         console.log(e)
+        console.log("Docker")
     }
 }
 
