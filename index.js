@@ -8,6 +8,7 @@ const PORT = 5000;
 const DB_URL = "mongodb+srv://user:userPassword@cluster0.wmipr.mongodb.net/cart-db?retryWrites=true&w=majority"
 const app = express();
 
+console.log('d')
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", req.headers.origin)
