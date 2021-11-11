@@ -1,15 +1,24 @@
 import UserService from "../services/UserService.js";
+import {validationResult} from "express-validator";
 
 class UserController {
-    async register(req, res){
+    async register(req, res) {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({message: "Ошибка при регистрации", errors})
+            }
             const response = await UserService.create(req.body);
-
-            response ? res.json(Object.assign({isAuth: true}, response?._doc)) : res.status(400).json("Password symbols must be more than 8")
-        }catch (e) {
+            if (response.statusCode === 400) {
+                return res.status(400).json({message: "Ошибка при регистрации, такой аккаунт уже существует!", errors})
+            } else {
+                res.json(Object.assign({isAuth: true}, response?._doc))
+            }
+        } catch (e) {
             return res.status(500).json(e.message)
         }
     }
+
     async login(req, res) {
         try {
 
@@ -22,8 +31,8 @@ class UserController {
         }
     }
 
-    async changeData(req, res){
-        try{
+    async changeData(req, res) {
+        try {
             const response = await UserService.changeData(req.body);
             return res.json(response)
         } catch (e) {
