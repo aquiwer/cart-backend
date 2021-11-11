@@ -1,5 +1,6 @@
 import UserService from "../services/UserService.js";
 import {validationResult} from "express-validator";
+import bcrypt from "bcryptjs";
 
 class UserController {
     async register(req, res) {
@@ -10,7 +11,7 @@ class UserController {
             }
             const response = await UserService.create(req.body);
             if (response.statusCode === 400) {
-                return res.status(400).json({message: "Ошибка при регистрации, такой аккаунт уже существует!", errors})
+                return res.status(400).json({message: "Ошибка при регистрации, такой юзер уже существует!", errors})
             } else {
                 res.json(Object.assign({isAuth: true}, response?._doc))
             }
@@ -21,10 +22,21 @@ class UserController {
 
     async login(req, res) {
         try {
+            const {login, username, password} = req.body
 
-            const response = await UserService.login(req.body);
+            const user = await UserService.findUser({username, login})
+            if (!user) {
+                return res.status(400).json({message: `Пользователь ${username} не найден`})
+            }
 
-            Boolean(response) ? res.json(Object.assign({isAuth: true}, response?._doc ?? "Server error!")) : res.status(404).json("Account is not found");
+            const validPassword = bcrypt.compareSync(password, user.password)
+
+            if (!validPassword) {
+                return res.status(400).json({message: `Введен неверный пароль`})
+            } else {
+                return res.json(user)
+            }
+
 
         } catch (e) {
             return res.status(500).json(e.message)

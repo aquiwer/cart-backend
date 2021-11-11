@@ -16,13 +16,15 @@ class UserService {
     }
 
     async login(user) {
-
-        return UserShema.findOne(user);
+        const {login, password} = user;
+        return UserShema.findOne({login, password});
     }
 
     async changeData(userData) {
         return UserShema.findByIdAndUpdate(userData._id, userData, {new: true});
-
+    }
+    async findUser(user){
+        return UserShema.findOne(user);
     }
 }
 
