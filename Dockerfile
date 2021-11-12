@@ -14,5 +14,4 @@ EXPOSE $PORT
 
 VOLUME ["/app/data"]
 
-CMD ["nodemon", "index.js"]
-
+CMD ["node", "index.js"]

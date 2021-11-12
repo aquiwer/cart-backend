@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      dockerfile: ./Dockerfile
+    image: "dimovski/shopback"
+    ports:
+      - "6000:5000"
