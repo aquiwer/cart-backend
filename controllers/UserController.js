@@ -25,6 +25,7 @@ class UserController {
             const {login, username, password} = req.body
 
             const user = await UserService.findUser({username, login})
+
             if (!user) {
                 return res.status(400).json({message: `Пользователь ${username} не найден`})
             }
@@ -34,7 +35,7 @@ class UserController {
             if (!validPassword) {
                 return res.status(400).json({message: `Введен неверный пароль`})
             } else {
-                return res.json(user)
+                return res.json(Object.assign({isAuth: true, ...user._doc}))
             }
 
 
