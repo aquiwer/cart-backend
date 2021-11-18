@@ -10,7 +10,7 @@ class UserController {
 
 
     async sendUniqCodeToUser(req, res) {
-        function gen_password(len) {
+        function uniqCodeGenerator(len) {
             let password = "";
             let symbols =
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -20,9 +20,13 @@ class UserController {
             return password.toUpperCase();
         }
 
-        const secretKey = gen_password(6)
+        const secretKey = uniqCodeGenerator(6)
 
         state.code = secretKey;
+
+        setTimeout(() => {
+          state.code = undefined;
+        },120000)
 
         const {email} = req.body;
 
@@ -35,8 +39,7 @@ class UserController {
     async checkUniqCodes(req, res) {
         try {
             const {uniqCode} = req.body;
-            console.log(uniqCode, 'user code')
-            console.log(state.code, 'state code')
+
             if (uniqCode === state.code) {
                 return res.json(true)
             } else {
@@ -49,8 +52,8 @@ class UserController {
 
     async register(req, res) {
         try {
-
             const errors = validationResult(req);
+
             if (!errors.isEmpty()) {
                 return res.status(400).json({message: "Ошибка при регистрации", errors})
             }
