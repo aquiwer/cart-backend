@@ -1,14 +1,53 @@
 import UserService from "../services/UserService.js";
+import MailService from "../services/MailService.js";
 import {validationResult} from "express-validator";
 import bcrypt from "bcryptjs";
 
+let state = {
+    code: undefined
+}
 class UserController {
+
+
+    async sendUniqCodeToUser(req, res) {
+        const head = Date.now().toString(36);
+        const tail = Math.random().toString(36).substr(200);
+
+        let secretKey = (head + tail).toUpperCase();
+
+        state.code = secretKey;
+
+        const {email} = req.body;
+
+        await MailService.sendUniqCode(email, secretKey);
+
+        return res.json({message: "Code sent."})
+
+    }
+
+    async checkUniqCodes(req, res) {
+        try {
+            const {uniqCode} = req.body;
+            console.log(uniqCode, 'user code')
+            console.log(state.code, 'state code')
+            if (uniqCode === state.code) {
+                return res.json(true)
+            } else {
+                res.status(400).json({message: "Uniq code is incorrect! Try again."})
+            }
+        } catch (e) {
+            return res.status(500).json(e.message)
+        }
+    }
+
     async register(req, res) {
         try {
+
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({message: "Ошибка при регистрации", errors})
             }
+
             const response = await UserService.create(req.body);
             if (response.statusCode === 400) {
                 return res.status(400).json({message: "Ошибка при регистрации, такой юзер уже существует!", errors})
@@ -52,6 +91,8 @@ class UserController {
             return res.status(500).json(e.message);
         }
     }
+
+
 }
 
 export default new UserController()

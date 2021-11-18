@@ -22,4 +22,8 @@ router.post('/user', [
 router.post('/favorite', FavoriteController.addToFavorite)
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
+
+// router.post('/contact', UserController.sendMail)
+router.post('/uniqCode', UserController.checkUniqCodes)
+router.post('/newUniqCode', UserController.sendUniqCodeToUser)
 export default router;
