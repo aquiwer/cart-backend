@@ -10,10 +10,17 @@ class UserController {
 
 
     async sendUniqCodeToUser(req, res) {
-        const head = Date.now().toString(36);
-        const tail = Math.random().toString(36).substr(200);
+        function gen_password(len) {
+            let password = "";
+            let symbols =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (let i = 0; i < len; i++) {
+                password += symbols.charAt(Math.floor(Math.random() * symbols.length));
+            }
+            return password.toUpperCase();
+        }
 
-        let secretKey = (head + tail).toUpperCase();
+        const secretKey = gen_password(6)
 
         state.code = secretKey;
 
