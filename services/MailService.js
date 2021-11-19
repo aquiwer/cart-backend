@@ -9,8 +9,8 @@ class MailService {
                 port: 587,
                 secure: false,
                 auth: {
-                    user: "nodemailerdimatest@gmail.com",
-                    pass: "DimaKing228",
+                    user: "<user>",
+                    pass: "<pass>",
                 }
             })
             await transporter.sendMail({
