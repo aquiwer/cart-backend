@@ -19,7 +19,7 @@ router.put('/user', UserController.changeData)
 router.post('/user', [
     check("username", "Name must be not empty and include more than 4 symbols").notEmpty().isLength({min: 4})],
     check("password", "Password must be not empty and include more than 8 symbols").notEmpty().isLength({min: 6}), UserController.register)
-router.post('/favorite', FavoriteController.addToFavorite)
+router.put('/favorite', UserController.addToFav)
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
 

@@ -7,7 +7,9 @@ const UserShema = new mongoose.Schema({
     email: {type: String},
     balance: {type: Number},
     photo: {type: String},
-    isAuth: {type: Boolean}
+    isAuth: {type: Boolean},
+    cart: {type: Array, ref: 'CartShema'},
+    liked: [{type: Object, ref: 'FavoriteShema'}]
 
 })
 
