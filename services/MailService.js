@@ -9,8 +9,8 @@ class MailService {
                 port: 587,
                 secure: false,
                 auth: {
-                    user: "<user>",
-                    pass: "<pass>",
+                    user: "nodemailerdimatest@gmail.com",
+                    pass: "disneyvvnik",
                 }
             })
             await transporter.sendMail({
@@ -18,7 +18,7 @@ class MailService {
                 to: `${email}`,
                 subject: "Uniq Code",
                 text: `${secretKey}`,
-                html: `<b>Please, copy this code ${secretKey} and paste in the Dail-Shop Registration Window</b>`,
+                html: `<b>Please, copy this code ${secretKey} and paste in the Dial-Shop Registration Window</b>`,
             }, (error, info) => {
                 if(error){
                     console.log(error)

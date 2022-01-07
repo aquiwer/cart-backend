@@ -2,6 +2,7 @@
 /.pnp
 .pnp.js
 /Desktop.ini
+/config/database
 
 # testing
 /coverage

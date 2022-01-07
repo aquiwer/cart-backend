@@ -3,9 +3,10 @@ import mongoose from 'mongoose';
 import router from './router/router.js'
 import fileUpload from 'express-fileupload'
 import process from 'process';
+import {dataBaseLogin, dataBasePassword} from "./config/database/config.js";
 
 const PORT = 5000;
-const DB_URL = "mongodb+srv://user:userPassword@cluster0.wmipr.mongodb.net/cart-db?retryWrites=true&w=majority"
+const DB_URL = `mongodb+srv://${dataBaseLogin}:${dataBasePassword}@cluster0.wmipr.mongodb.net/cart-db?retryWrites=true&w=majority`
 const app = express();
 
 

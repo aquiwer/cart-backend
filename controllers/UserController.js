@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 let state = {
     code: undefined
 }
+
 class UserController {
 
 
@@ -25,8 +26,8 @@ class UserController {
         state.code = secretKey;
 
         setTimeout(() => {
-          state.code = undefined;
-        },120000)
+            state.code = undefined;
+        }, 120000)
 
         const {email} = req.body;
 
@@ -50,6 +51,7 @@ class UserController {
         }
     }
 
+
     async register(req, res) {
         try {
             const errors = validationResult(req);
@@ -62,7 +64,7 @@ class UserController {
             if (response.statusCode === 400) {
                 return res.status(400).json({message: "Ошибка при регистрации, такой юзер уже существует!", errors})
             } else {
-                res.json(Object.assign({isAuth: true}, response?._doc))
+                res.json(Object.assign({isAuth: true, balance: 0, photo: ""}, response?._doc))
             }
         } catch (e) {
             return res.status(500).json(e.message)
@@ -102,6 +104,13 @@ class UserController {
         }
     }
 
+    async addToFav(req, res) {
+        try {
+            return await UserService.changeData(req.body);
+        } catch (e) {
+            return res.status(500).json(e.message)
+        }
+    }
 
 }
 
